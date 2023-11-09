@@ -66,8 +66,20 @@ struct Solution resolveTwo(double a,double b, double c){
         return sol;
     }
 }
+
+struct Solution resolve(double a,double b, double c){
+    if (a==0){
+        showSolution(resolveOne(b,c));
+    }
+    else{
+        showSolution(resolveTwo(a, b, c));
+    }
+}
+
+
+
 int main(){
     //showSolution(resolveOne(8,2));
-    showSolution(resolveTwo(-2,0,10));
+    resolve(1,0,-45);
     return 0;
 }
