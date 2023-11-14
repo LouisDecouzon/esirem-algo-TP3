@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <math.h>
+#include <string.h>
 enum SolutionType{
     NONE=0,
     ONE=1,
@@ -11,7 +12,7 @@ struct Solution{
     double x1;
     double x2;
 };
-struct equation{
+struct equation{    
     float a;
     float b;
     float c;
@@ -46,8 +47,14 @@ void test() {
 }
 
 struct Solution resolveOne(double a, double b){
-    struct Solution sol={ONE,(-b/a),0,0};
-    return sol;
+    if(a==0){
+        struct Solution sol = {NONE,0,0,0};
+        return sol;
+    }
+    else {
+        struct Solution sol = {ONE, (-b / a), 0, 0};
+        return sol;
+    }
 }
 
 struct Solution resolveTwo(double a,double b, double c){
@@ -67,7 +74,7 @@ struct Solution resolveTwo(double a,double b, double c){
     }
 }
 
-struct Solution resolve(double a,double b, double c){
+void resolve(double a,double b, double c){
     if (a==0){
         showSolution(resolveOne(b,c));
     }
@@ -76,10 +83,68 @@ struct Solution resolve(double a,double b, double c){
     }
 }
 
-
+void decode(char expression[]) {//-4732x^2+83826x-5373
+    int a;
+    int b;
+    int c;
+    int co = 0;
+    int i=0;
+    int i_buffer;
+    int sgn_a=0;
+    int sgn_b=0;
+    int sgn_c=0;
+    // cherche a
+    if (expression[0]=="-"){
+        sgn_a=-1;
+        co++;
+    }
+    for (co; expression[i] != "x"; i++) {
+        if (co == 0) {
+            a = expression[i];
+            co++;
+        } else {
+            a = a * 10 + expression[i];
+            co++;
+        }
+    }
+    i_buffer = i_buffer + 3;
+    co = 0;
+    if(expression[co-1]=="-"){
+        sgn_b=-1;
+    }
+    for (i = i_buffer; expression[i] != "x"; i++) {
+        if (co == 0) {
+            b = expression[i];
+            co++;
+        } else {
+            b = b * 10 + expression[i];
+            co++;
+        }
+    }
+    i_buffer = i_buffer + 2;
+    co = 0;
+    if(expression[co-1]=="-"){
+        sgn_c=-1;
+    }
+    for (i = i_buffer; i < (sizeof(expression) / sizeof(expression[0])); i++) {
+        if (co == 0) {
+            c = expression[i];
+            co++;
+        } else {
+            c = c * 10 + expression[i];
+            co++;
+        }
+    }
+    a=a*sgn_a;
+    b=b*sgn_b;
+    c=c*sgn_c;
+    resolve(a,b,c);
+}
 
 int main(){
     //showSolution(resolveOne(8,2));
-    resolve(1,0,-45);
+    //resolve(78,0,-45);
+    char ci[]="4732x^2+83826x-5373";
+    decode(ci);
     return 0;
 }
