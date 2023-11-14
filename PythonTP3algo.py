@@ -1,5 +1,5 @@
 from enum import Enum
-
+import math 
 class SolutionType(Enum):
     NONE=0
     ONE=1
@@ -53,6 +53,29 @@ def ResolveOne(a:float,b:float):
         sol=Solution(SolutionType.ONE,-b/a)
     return sol
     
-
 #test()
-ShowSolution(ResolveOne(3,2))
+#ShowSolution(ResolveOne(3,2))
+
+def ResolveTwo(a:float,b:float,c:float):
+    delta=b*b-4*a*c
+    if delta==0:
+        sol=Solution(SolutionType.ONE,-b/(2*a))
+    elif delta>0:
+        RacineDelta=math.sqrt(delta)
+        sol=Solution(SolutionType.TWO,0,(-b-RacineDelta)/(2*a),(-b+RacineDelta)/(2*a))
+    elif delta<0:
+        sol=Solution(SolutionType.NONE)
+    return sol
+
+def TestResolveTwo():
+    t=[(1,2,2),
+       (1,0,2),
+       (-1,2,4)]
+    i=1
+    for k in t :
+        print("Le resultat de l'equation associee au triplet",i,"est : ")   
+        ShowSolution(ResolveTwo(k[0],k[1],k[2]))
+        i+=1
+#TestResolveTwo()
+
+
