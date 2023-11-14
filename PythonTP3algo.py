@@ -67,15 +67,28 @@ def ResolveTwo(a:float,b:float,c:float):
         sol=Solution(SolutionType.NONE)
     return sol
 
-def TestResolveTwo():
+def Resolve(a:float,b:float,c:float):
+    if a==0:
+        return ResolveOne(b,c)
+    else:
+        return ResolveTwo(a,b,c)
+    
+
+def TestResolveAny():
     t=[(1,2,2),
        (1,0,2),
-       (-1,2,4)]
+       (-1,2,4),
+       (0,2,1),
+       (0,0,4)]
     i=1
     for k in t :
         print("Le resultat de l'equation associee au triplet",i,"est : ")   
-        ShowSolution(ResolveTwo(k[0],k[1],k[2]))
+        #ShowSolution(ResolveTwo(k[0],k[1],k[2]))
+        ShowSolution(Resolve(k[0],k[1],k[2]))
         i+=1
-#TestResolveTwo()
+TestResolveAny()
+
+
+
 
 
