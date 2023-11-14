@@ -45,4 +45,14 @@ def test():
         ShowSolution(s)
         i+=1
 
+
+def ResolveOne(a:float,b:float):
+    if a==0:
+        sol=Solution(SolutionType.NONE)
+    else:
+        sol=Solution(SolutionType.ONE,-b/a)
+    return sol
+    
+
 #test()
+ShowSolution(ResolveOne(3,2))
